@@ -1,4 +1,4 @@
-job "postgresql" {
+job "bety-postgis" {
   datacenters = [
     "dc1"]
   type        = "service"
@@ -38,7 +38,7 @@ job "postgresql" {
       driver = "docker"
 
       config {
-        image = "postgres:9.6.15-alpine"
+        image = "mdillon/postgis:9.5"
         port_map {
           db = 5432
         }
@@ -49,7 +49,7 @@ job "postgresql" {
         data = <<EOH
 # Environment variables required to work:
 # POSTGRES_PASSWORD="some-long-password-here"
-{{key "service/postgresql/environment"}}
+{{key "service/bety-postgis/environment"}}
 EOH
         destination = "secrets/file.env"
         env         = true
@@ -65,7 +65,7 @@ EOH
       }
 
       service {
-        name = "postgresql"
+        name = "bety-postgis"
         tags = [
           "urlprefix-:5432 proto=tcp"
         ]
