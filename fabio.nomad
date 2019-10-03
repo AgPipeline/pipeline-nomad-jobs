@@ -11,7 +11,7 @@ job "fabio" {
         image        = "fabiolb/fabio"
         network_mode = "host"
         args         = [
-          "-proxy.addr", ":9999,:5432;proto=tcp,:5672;proto=tcp,:9000;proto=tcp,:9200;proto=tcp,:9300;proto=tcp,:15672;proto=tcp,:27017;proto=tcp",
+          "-proxy.addr", ":9999,:5432;proto=tcp,:5672;proto=tcp,:8000;proto=tcp,:9000;proto=tcp,:9200;proto=tcp,:9300;proto=tcp,:15672;proto=tcp,:27017;proto=tcp",
           "-log.access.target", "stdout"
         ]
       }
@@ -32,6 +32,9 @@ job "fabio" {
           }
           port "rabbitmq_proxy" {
             static = 5672
+          }
+          port "bety_web_proxy" {
+            static = 8000
           }
           port "clowder_web_proxy" {
             static = 9000
